@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 
 
 const modal = (props)=>{
@@ -13,7 +14,7 @@ const modal = (props)=>{
           Check Your Inbox
         </ModalBody>
         <ModalFooter>
-          <Button color="success" href="/login">OK</Button>
+          <NavLink className="btn btn-success" to="/login">Login</NavLink>
           
         </ModalFooter>
       </Modal>

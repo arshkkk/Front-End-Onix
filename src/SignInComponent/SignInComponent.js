@@ -14,7 +14,7 @@ class Signup extends React.Component{
         var toRender = [];
         toRender.push(<LoginComponent loggedIn={()=>{this.props.history.push('/about')}} wrong_password_or_username_modal={()=>this.setState({wrong_password_or_username_modal:true})} email_verified_modal={()=>this.setState({email_verified_modal:true})}/>)
         if(this.state.email_verified_modal===true){
-            toRender.push(<Verify_Email_Modal/>)
+            toRender.push(<Verify_Email_Modal onClick={()=>this.setState({email_verified_modal:false})}/>)
         }
         else if(this.state.wrong_password_or_username_modal===true)
         toRender.push(<Wrong_Password_Or_Username onClick={()=>this.setState({wrong_password_or_username_modal:false})} />)

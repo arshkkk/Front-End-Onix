@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-
+import {NavLink} from 'react-router-dom'
 
 const wrong_password_or_email_modal = (props)=>{
     return (
@@ -13,8 +13,7 @@ const wrong_password_or_email_modal = (props)=>{
           Please Check your Username or Email
         </ModalBody>
         <ModalFooter>
-          <Button color="success" onClick={()=>props.onClick()} href="#">OK</Button>
-          
+          <NavLink className="btn btn-success" to="#" onClick={()=>props.onClick()}>OK</NavLink>
         </ModalFooter>
       </Modal>
 		
