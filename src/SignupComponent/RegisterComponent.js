@@ -5,6 +5,7 @@ import axios from 'axios'
 import {FormFeedback,Input,FormGroup,Form} from 'reactstrap'
 
 import messages from './Constants/messages'
+import { NavLink } from 'react-router-dom';
 
 class Register extends React.Component{
     
@@ -192,7 +193,7 @@ class Register extends React.Component{
                 <button type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
             </div>
         </Form>
-	<div class="text-center" >Already have an account? <a href="/login" class="sign-in-button">Sign in</a></div>
+	<div class="text-center" >Already have an account? <NavLink to="/login" class="sign-in-button">Sign in</NavLink></div>
     </div>
       
      )    

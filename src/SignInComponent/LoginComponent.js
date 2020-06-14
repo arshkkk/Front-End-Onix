@@ -2,6 +2,7 @@ import React from 'react';
 import './login.css'
 import config from '../config'
 import axios from 'axios'
+import { NavLink } from 'react-router-dom';
 
 class Login extends React.Component{
 
@@ -60,7 +61,7 @@ class Login extends React.Component{
                 <button onChange={this.onChange} type="submit" class="btn btn-success btn-lg btn-block">Login</button>
             </div>
         </form>
-	<div class="text-center" >Don't have an account? <a href="/register" class="signup-button">Register</a></div>
+	<div class="text-center" >Don't have an account? <NavLink to="/register" class="signup-button">Register</NavLink></div>
     </div>
       
      )    
