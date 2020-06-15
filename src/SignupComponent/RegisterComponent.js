@@ -27,6 +27,7 @@ class Register extends React.Component{
             emailValid:{},
             emailValidMessage:'',
             emailInvalidMessage:'',
+            disabled:{} //for disabling button
         }
     }
     
@@ -66,15 +67,26 @@ class Register extends React.Component{
         this.removeFeedback(event.target.name)
     }
 
+    disableRegisterButton = ()=>{
+        this.setState({disabled:{disabled:true}})
+    }
+
+    enableRegisterButton = ()=>{
+        this.setState({disabled:{}})
+    }
+
     onSubmit = (event)=>{
         event.preventDefault()
         if(this.state.emailValid.valid&&this.state.usernameValid.valid&&(this.state.password===this.state.confirm_password)){
+            this.disableRegisterButton()
             axios.post(config.backendUrl+config.registerRoute,this.state)
             .then((res)=>{
                 console.log(this.props)
+                this.enableRegisterButton()
                 this.props.registration_Success()
             })
             .catch(err=>{
+                this.enableRegisterButton()
                 console.log("Err: "+ err)
             })
         }
@@ -151,13 +163,14 @@ class Register extends React.Component{
     render(){
         const formController = {
             onBlur: this.onBlur,
-            onChange: this.onChange
+            onChange: this.onChange,
+            autoComplete:"off"
         }
       
 
         return(
         <div class="signup-form">
-        <Form autocomplete="off" onSubmit={this.onSubmit}>
+        <Form autoComplete="off" onSubmit={this.onSubmit}>
 
             <h2>Register</h2>
             <p class="hint-text">Create your account. It's free and only takes a minute.</p>
@@ -190,7 +203,7 @@ class Register extends React.Component{
                 <label class="checkbox-inline"><input {...formController} type="checkbox" required="required" name="accepted" /> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
             </div> */}
             <div class="form-group">
-                <button type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
+                <button {...this.state.disabled} type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
             </div>
         </Form>
 	<div class="text-center" >Already have an account? <NavLink to="/login" class="sign-in-button">Sign in</NavLink></div>

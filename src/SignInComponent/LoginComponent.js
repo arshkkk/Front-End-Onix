@@ -10,7 +10,8 @@ class Login extends React.Component{
         super(props)
         this.state={
             username:'',
-            password:''
+            password:'',
+            disabled:{}
         }
     }
     
@@ -22,15 +23,25 @@ class Login extends React.Component{
         })
     }
 
+    disableLoginButton = ()=>{
+        this.setState({disabled:{disabled:true}})
+    }
+    enableLoginButton = ()=>{
+        this.setState({disabled:{}})
+    }
     onSubmit = (event)=>{
         event.preventDefault()
+        this.disableLoginButton()
         axios.post(config.backendUrl+config.loginRoute,this.state)
         .then((res)=>{
             console.log(res.data.result)
             localStorage.setItem('token',res.data.result.token)
+            this.enableLoginButton()
             this.props.loggedIn()
         })
         .catch(err=>{
+            this.enableLoginButton()
+            
             if(err.response.status===401)
             if(err.response.data==='Unauthorized'){
                 console.log('unauthro')
@@ -48,17 +59,17 @@ class Login extends React.Component{
 
         return(
          <div class="signin-form">
-        <form onSubmit={this.onSubmit} action={`${config.backendUrl}${config.loginRoute}`} method="post">
+        <form autoComplete="off" onSubmit={this.onSubmit} action={`${config.backendUrl}${config.loginRoute}`} method="post">
             <h2>Login</h2>
             <p class="hint-text">Login to your account. It will give you access to Service provided by Us</p>
             <div class="form-group">
-            <input onChange={this.onChange} type="text" class="form-control" name="username" placeholder="Username" required="required"/>
+            <input autoComplete="off" onChange={this.onChange} type="text" class="form-control" name="username" placeholder="Username" required="required"/>
             </div>
             <div class="form-group">
-                <input onChange={this.onChange} type="password" class="form-control" name="password" placeholder="Password" required="required"/>
+                <input autoComplete="off" onChange={this.onChange} type="password" class="form-control" name="password" placeholder="Password" required="required"/>
             </div>    
             <div class="form-group">
-                <button onChange={this.onChange} type="submit" class="btn btn-success btn-lg btn-block">Login</button>
+                <button {...this.state.disabled} onChange={this.onChange} type="submit" class="btn btn-success btn-lg btn-block">Login</button>
             </div>
         </form>
 	<div class="text-center" >Don't have an account? <NavLink to="/register" class="signup-button">Register</NavLink></div>
